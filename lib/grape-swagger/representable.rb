@@ -11,4 +11,4 @@ module Grape
   end
 end
 
-GrapeSwagger.register_model_parser(::GrapeSwagger::Representable::Parser, ::Representable::Decorator)
+GrapeSwagger.model_parsers.register(::GrapeSwagger::Representable::Parser, ::Representable::Decorator)

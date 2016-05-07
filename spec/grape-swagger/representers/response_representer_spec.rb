@@ -206,7 +206,6 @@ describe 'should build definition from given entity' do
   end
 
   it 'it prefer entity over others' do
-    require 'pry'
     expect(subject['definitions']).to eql(
       'Kind' => { 'type' => 'object', 'properties' => { 'id' => { 'description' => 'Title of the kind.', 'type' => 'integer', 'format' => 'int32' } } },
       'Tag' => { 'type' => 'object', 'properties' => { 'name' => { 'description' => 'Name', 'type' => 'string' } } },

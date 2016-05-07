@@ -6,6 +6,6 @@ describe GrapeSwagger::Representable do
   end
 
   it 'parser should be registred' do
-    expect(GrapeSwagger.model_parsers[GrapeSwagger::Representable::Parser]).to eq('Representable::Decorator')
+    expect(GrapeSwagger.model_parsers.to_a).to include([GrapeSwagger::Representable::Parser, 'Representable::Decorator'])
   end
 end
