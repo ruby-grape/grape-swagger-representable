@@ -20,11 +20,11 @@ module GrapeSwagger
         documentation = property[:documentation] ? property[:documentation].dup : {}
 
         if property[:decorator] && property[:nested]
-          representer_mapping(property[:decorator], documentation, is_a_collection: is_a_collection, nested: property[:nested])
+          representer_mapping(property[:decorator], documentation, is_a_collection, false, property[:nested])
         elsif property[:decorator]
-          representer_mapping(property[:decorator], documentation, is_a_collection: is_a_collection, is_a_decorator: true)
+          representer_mapping(property[:decorator], documentation, is_a_collection, true)
         elsif property[:nested]
-          representer_mapping(property[:nested], documentation, is_a_collection: is_a_collection)
+          representer_mapping(property[:nested], documentation, is_a_collection)
         else
           memo = {
             description: documentation[:desc] || ''
@@ -52,7 +52,7 @@ module GrapeSwagger
         end
       end
 
-      def representer_mapping(representer, documentation, is_a_collection: false, is_a_decorator: false, nested: nil)
+      def representer_mapping(representer, documentation, is_a_collection = false, is_a_decorator = false, nested = nil)
         if nested.nil? && is_a_decorator
           name = endpoint.send(:expose_params_from_model, representer)
 
