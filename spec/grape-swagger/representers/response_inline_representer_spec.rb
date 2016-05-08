@@ -135,9 +135,9 @@ describe 'responseInlineModel' do
             'properties' => {
               'name' => { 'description' => 'Name', 'type' => 'string' },
               'color' => { 'description' => 'Tag color.', 'type' => 'string' }
-            },
-            'description' => 'Tags.'
-          }
+            }
+          },
+          'description' => 'Tags.'
         }
       }
     )

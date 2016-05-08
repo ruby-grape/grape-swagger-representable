@@ -41,7 +41,7 @@ module GrapeSwagger
 
           memo[:enum] = documentation[:values] if documentation[:values].is_a?(Array)
 
-          if is_a_collection
+          if is_a_collection || documentation[:is_array]
             memo = {
               type: :array,
               items: memo
@@ -56,7 +56,7 @@ module GrapeSwagger
         if nested.nil? && is_a_decorator
           name = endpoint.send(:expose_params_from_model, representer)
 
-          if is_a_collection
+          if is_a_collection || documentation[:is_array]
             {
               type: :array,
               items: {
@@ -79,9 +79,9 @@ module GrapeSwagger
               type: :array,
               items: {
                 type: :object,
-                properties: attributes,
-                description: documentation[:desc] || ''
-              }
+                properties: attributes
+              },
+              description: documentation[:desc] || ''
             }
           else
             {
