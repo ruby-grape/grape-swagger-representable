@@ -1,4 +1,4 @@
-# GrapeSwagger::Representable [![Build Status](https://travis-ci.org/Bugagazavr/grape-swagger-representable.svg)](https://travis-ci.org/Bugagazavr/grape-swagger-representable)
+# GrapeSwagger::Representable [![Build Status](https://travis-ci.org/ruby-grape/grape-swagger-representable.svg)](https://travis-ci.org/ruby-grape/grape-swagger-representable)
 
 A simple grape-swagger adapter to allow parse representers as response model
 
