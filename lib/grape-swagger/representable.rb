@@ -4,10 +4,8 @@ require 'representable'
 require 'grape-swagger/representable/version'
 require 'grape-swagger/representable/parser'
 
-module Grape
-  module Swagger
-    module Representable
-    end
+module GrapeSwagger
+  module Representable
   end
 end
 
