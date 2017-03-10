@@ -20,17 +20,17 @@ module GrapeSwagger
         documentation = property[:documentation] ? property[:documentation].dup : {}
 
         if property[:decorator] && property[:nested]
-          representer_mapping(property[:decorator], documentation, is_a_collection, false, property[:nested])
+          representer_mapping(property[:decorator], documentation, property, is_a_collection, false, property[:nested])
         elsif property[:decorator]
-          representer_mapping(property[:decorator], documentation, is_a_collection, true)
+          representer_mapping(property[:decorator], documentation, property, is_a_collection, true)
         elsif property[:nested]
-          representer_mapping(property[:nested], documentation, is_a_collection)
+          representer_mapping(property[:nested], documentation, property, is_a_collection)
         else
           memo = {
-            description: documentation[:desc] || ''
+            description: documentation[:desc] || property[:desc] || ''
           }
 
-          data_type = GrapeSwagger::DocMethods::DataType.call(documentation[:type])
+          data_type = GrapeSwagger::DocMethods::DataType.call(documentation[:type] || property[:type])
           if GrapeSwagger::DocMethods::DataType.primitive?(data_type)
             data = GrapeSwagger::DocMethods::DataType.mapping(data_type)
             memo[:type] = data.first
@@ -39,7 +39,8 @@ module GrapeSwagger
             memo[:type] = data_type
           end
 
-          memo[:enum] = documentation[:values] if documentation[:values].is_a?(Array)
+          values = documentation[:values] || property[:values] || nil
+          memo[:enum] = values if values.is_a?(Array)
 
           if is_a_collection || documentation[:is_array]
             memo = {
@@ -52,7 +53,7 @@ module GrapeSwagger
         end
       end
 
-      def representer_mapping(representer, documentation, is_a_collection = false, is_a_decorator = false, nested = nil)
+      def representer_mapping(representer, documentation, property, is_a_collection = false, is_a_decorator = false, nested = nil)
         if nested.nil? && is_a_decorator
           name = endpoint.send(:expose_params_from_model, representer)
 
@@ -62,12 +63,12 @@ module GrapeSwagger
               items: {
                 '$ref' => "#/definitions/#{name}"
               },
-              description: documentation[:desc] || ''
+              description: documentation[:desc] || property[:desc] || ''
             }
           else
             {
               '$ref' => "#/definitions/#{name}",
-              description: documentation[:desc] || ''
+              description: documentation[:desc] || property[:desc] || ''
             }
           end
         else
@@ -81,13 +82,13 @@ module GrapeSwagger
                 type: :object,
                 properties: attributes
               },
-              description: documentation[:desc] || ''
+              description: documentation[:desc] || property[:desc] || ''
             }
           else
             {
               type: :object,
               properties: attributes,
-              description: documentation[:desc] || ''
+              description: documentation[:desc] || property[:desc] || ''
             }
           end
         end
