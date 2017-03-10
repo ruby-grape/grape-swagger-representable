@@ -13,13 +13,13 @@ describe 'responseModel' do
         class Relation < Representable::Decorator
           include Representable::JSON
 
-          property :name, documentation: { type: 'string', desc: 'Name' }
+          property :name, type: 'string', desc: 'RelationName', documentation: { type: 'string', desc: 'Name' }
         end
 
         class Tag < Representable::Decorator
           include Representable::JSON
 
-          property :name, documentation: { type: 'string', desc: 'Name' }
+          property :name, type: 'string', desc: 'Name'
         end
 
         class Error < Representable::Decorator
