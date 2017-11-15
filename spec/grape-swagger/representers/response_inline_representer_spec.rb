@@ -7,13 +7,13 @@ describe 'responseInlineModel' do
         class Kind < Representable::Decorator
           include Representable::JSON
 
-          property :id, documentation: { type: Integer, desc: 'Title of the kind.' }
+          property :id, documentation: { type: Integer, desc: 'Title of the kind.', example: 123 }
         end
 
         class Tag < Representable::Decorator
           include Representable::JSON
 
-          property :name, documentation: { type: 'string', desc: 'Name' }
+          property :name, documentation: { type: 'string', desc: 'Name', example: -> { 'A tag' } }
         end
 
         class Error < Representable::Decorator
@@ -125,7 +125,7 @@ describe 'responseInlineModel' do
         'kind2' => {
           'type' => 'object',
           'properties' => {
-            'id' => { 'description' => 'Title of the kind.', 'type' => 'integer', 'format' => 'int32' },
+            'id' => { 'description' => 'Title of the kind.', 'type' => 'integer', 'format' => 'int32', 'example' => 123 },
             'name' => { 'description' => 'Kind name.', 'type' => 'string' }
           },
           'description' => 'Secondary kind.'
@@ -136,7 +136,7 @@ describe 'responseInlineModel' do
           'items' => {
             'type' => 'object',
             'properties' => {
-              'name' => { 'description' => 'Name', 'type' => 'string' },
+              'name' => { 'description' => 'Name', 'type' => 'string', 'example' => 'A tag' },
               'color' => { 'description' => 'Tag color.', 'type' => 'string' }
             }
           },
@@ -147,7 +147,7 @@ describe 'responseInlineModel' do
 
     expect(subject['definitions'].keys).to include 'Kind'
     expect(subject['definitions']['Kind']).to eq(
-      'type' => 'object', 'properties' => { 'id' => { 'description' => 'Title of the kind.', 'type' => 'integer', 'format' => 'int32' } }
+      'type' => 'object', 'properties' => { 'id' => { 'description' => 'Title of the kind.', 'type' => 'integer', 'format' => 'int32', 'example' => 123 } }
     )
   end
 end
