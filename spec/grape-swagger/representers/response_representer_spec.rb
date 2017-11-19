@@ -52,7 +52,7 @@ describe 'responseModel' do
         end
 
         # something like an index action
-        desc 'This returns something or an error',
+        desc 'This returns something',
              entity: Representers::Something,
              http_codes: [
                { code: 200, message: 'OK', model: Representers::Something },
@@ -91,7 +91,8 @@ describe 'responseModel' do
         'description' => 'OK',
         'schema' => {
           'type' => 'array',
-          'items' => { '$ref' => '#/definitions/Something' } }
+          'items' => { '$ref' => '#/definitions/Something' }
+        }
       }
     )
   end
@@ -110,17 +111,14 @@ describe 'responseModel' do
     expect(subject['definitions'].keys).to include 'Error'
     expect(subject['definitions']['Error']).to eq(
       'type' => 'object',
-      'description' => 'This returns something or an error',
-      'properties' => {
-        'code' => { 'type' => 'string', 'description' => 'Error code' },
-        'message' => { 'type' => 'string', 'description' => 'Error message' }
-      }
+      'description' => 'This returns something',
+      'properties' => { 'code' => { 'description' => 'Error code', 'type' => 'string' }, 'message' => { 'description' => 'Error message', 'type' => 'string' } }
     )
 
     expect(subject['definitions'].keys).to include 'Something'
     expect(subject['definitions']['Something']).to eq(
       'type' => 'object',
-      'description' => 'This returns something or an error',
+      'description' => 'This returns something',
       'properties' =>
           { 'text' => { 'type' => 'string', 'description' => 'Content of something.' },
             'kind' => { '$ref' => '#/definitions/Kind', 'description' => 'The kind of this something.' },
@@ -221,6 +219,7 @@ describe 'should build definition from given entity' do
           'relation' => { '$ref' => '#/definitions/Relation', 'description' => 'A related model.' }
         },
         'description' => 'This returns something'
-      })
+      }
+    )
   end
 end

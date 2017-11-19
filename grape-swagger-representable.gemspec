@@ -1,4 +1,4 @@
-# coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'grape-swagger/representable/version'
@@ -22,13 +22,14 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'representable'
 
   s.add_development_dependency 'bundler', '~> 1.12'
-  s.add_development_dependency 'rake', '~> 10.0'
-  s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'rack-test'
-  s.add_development_dependency 'rack-cors'
-  s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'redcarpet' unless RUBY_PLATFORM.eql?('java') || RUBY_ENGINE.eql?('rbx')
-  s.add_development_dependency 'rouge' unless RUBY_PLATFORM.eql?('java') || RUBY_ENGINE.eql?('rbx')
+  s.add_development_dependency 'multi_json'
   s.add_development_dependency 'pry' unless RUBY_PLATFORM.eql?('java') || RUBY_ENGINE.eql?('rbx')
   s.add_development_dependency 'pry-byebug' unless RUBY_PLATFORM.eql?('java') || RUBY_ENGINE.eql?('rbx')
+  s.add_development_dependency 'rack-cors'
+  s.add_development_dependency 'rack-test'
+  s.add_development_dependency 'rake', '~> 10.0'
+  s.add_development_dependency 'redcarpet' unless RUBY_PLATFORM.eql?('java') || RUBY_ENGINE.eql?('rbx')
+  s.add_development_dependency 'rouge' unless RUBY_PLATFORM.eql?('java') || RUBY_ENGINE.eql?('rbx')
+  s.add_development_dependency 'rspec', '~> 3.0'
+  s.add_development_dependency 'rubocop'
 end

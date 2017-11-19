@@ -49,7 +49,7 @@ describe 'responseInlineModel' do
         end
 
         # something like an index action
-        desc 'This returns something or an error',
+        desc 'This returns something',
              entity: Representers::Something,
              http_codes: [
                { code: 200, message: 'OK', model: Representers::Something },
@@ -88,7 +88,8 @@ describe 'responseInlineModel' do
         'description' => 'OK',
         'schema' => {
           'type' => 'array',
-          'items' => { '$ref' => '#/definitions/Something' } }
+          'items' => { '$ref' => '#/definitions/Something' }
+        }
       }
     )
   end
@@ -107,7 +108,7 @@ describe 'responseInlineModel' do
     expect(subject['definitions'].keys).to include 'Error'
     expect(subject['definitions']['Error']).to eq(
       'type' => 'object',
-      'description' => 'This returns something or an error',
+      'description' => 'This returns something',
       'properties' => {
         'code' => { 'type' => 'string', 'description' => 'Error code' },
         'message' => { 'type' => 'string', 'description' => 'Error message' }
@@ -117,7 +118,7 @@ describe 'responseInlineModel' do
     expect(subject['definitions'].keys).to include 'Something'
     expect(subject['definitions']['Something']).to eq(
       'type' => 'object',
-      'description' => 'This returns something or an error',
+      'description' => 'This returns something',
       'properties' => {
         'text' => { 'description' => 'Content of something.', 'type' => 'string' },
         'kind' => { '$ref' => '#/definitions/Kind', 'description' => 'The kind of this something.' },
@@ -125,8 +126,10 @@ describe 'responseInlineModel' do
           'type' => 'object',
           'properties' => {
             'id' => { 'description' => 'Title of the kind.', 'type' => 'integer', 'format' => 'int32' },
-            'name' => { 'description' => 'Kind name.', 'type' => 'string' } },
-          'description' => 'Secondary kind.' },
+            'name' => { 'description' => 'Kind name.', 'type' => 'string' }
+          },
+          'description' => 'Secondary kind.'
+        },
         'kind3' => { '$ref' => '#/definitions/Kind', 'description' => 'Tertiary kind.' },
         'tags' => {
           'type' => 'array',
