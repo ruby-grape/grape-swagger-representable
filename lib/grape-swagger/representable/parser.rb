@@ -42,6 +42,9 @@ module GrapeSwagger
           values = documentation[:values] || property[:values] || nil
           memo[:enum] = values if values.is_a?(Array)
 
+          example = documentation[:example] || property[:example] || nil
+          memo[:example] = example.is_a?(Proc) ? example.call : example if example
+
           if is_a_collection || documentation[:is_array]
             memo = {
               type: :array,

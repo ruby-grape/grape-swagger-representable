@@ -7,13 +7,13 @@ describe 'responseModel' do
         class Kind < Representable::Decorator
           include Representable::JSON
 
-          property :title, documentation: { type: 'string', desc: 'Title of the kind.' }
+          property :title, documentation: { type: 'string', desc: 'Title of the kind.', example: 123 }
         end
 
         class Relation < Representable::Decorator
           include Representable::JSON
 
-          property :name, type: 'string', desc: 'RelationName', documentation: { type: 'string', desc: 'Name' }
+          property :name, type: 'string', desc: 'RelationName', documentation: { type: 'string', desc: 'Name', example: -> { 'A relation' } }
         end
 
         class Tag < Representable::Decorator
@@ -130,12 +130,12 @@ describe 'responseModel' do
 
     expect(subject['definitions'].keys).to include 'Kind'
     expect(subject['definitions']['Kind']).to eq(
-      'type' => 'object', 'properties' => { 'title' => { 'type' => 'string', 'description' => 'Title of the kind.' } }
+      'type' => 'object', 'properties' => { 'title' => { 'type' => 'string', 'description' => 'Title of the kind.', 'example' => 123 } }
     )
 
     expect(subject['definitions'].keys).to include 'Relation'
     expect(subject['definitions']['Relation']).to eq(
-      'type' => 'object', 'properties' => { 'name' => { 'type' => 'string', 'description' => 'Name' } }
+      'type' => 'object', 'properties' => { 'name' => { 'type' => 'string', 'description' => 'Name', 'example' => 'A relation' } }
     )
 
     expect(subject['definitions'].keys).to include 'Tag'
