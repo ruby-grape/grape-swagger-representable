@@ -33,6 +33,7 @@ describe 'responseModel' do
           include Representable::JSON
 
           property :text, documentation: { type: 'string', desc: 'Content of something.' }
+          property :original, as: :alias, documentation: { type: 'string', desc: 'Aliased.'}
           property :kind, decorator: Kind, documentation: { desc: 'The kind of this something.' }
           property :kind2, decorator: Kind, documentation: { desc: 'Secondary kind.' }
           property :kind3, decorator: ThisApi::Representers::Kind, documentation: { desc: 'Tertiary kind.' }
@@ -121,6 +122,7 @@ describe 'responseModel' do
       'description' => 'This returns something',
       'properties' =>
           { 'text' => { 'type' => 'string', 'description' => 'Content of something.' },
+            'alias' => { 'type' => 'string', 'description' => 'Aliased.' },
             'kind' => { '$ref' => '#/definitions/Kind', 'description' => 'The kind of this something.' },
             'kind2' => { '$ref' => '#/definitions/Kind', 'description' => 'Secondary kind.' },
             'kind3' => { '$ref' => '#/definitions/Kind', 'description' => 'Tertiary kind.' },
