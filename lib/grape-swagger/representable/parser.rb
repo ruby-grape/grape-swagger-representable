@@ -99,7 +99,8 @@ module GrapeSwagger
 
       def parse_representer(representer)
         representer.map.each_with_object({}) do |value, property|
-          property[value.name] = parse_representer_property(value)
+          property_name = value[:as].try(:call) || value.name
+          property[property_name] = parse_representer_property(value)
         end
       end
     end

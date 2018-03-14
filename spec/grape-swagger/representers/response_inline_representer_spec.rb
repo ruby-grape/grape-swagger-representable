@@ -27,6 +27,7 @@ describe 'responseInlineModel' do
           include Representable::JSON
 
           property :text, documentation: { type: 'string', desc: 'Content of something.' }
+          property :original, as: :alias, documentation: { type: 'string', desc: 'Aliased.'}
           property :kind, decorator: Kind, documentation: { desc: 'The kind of this something.' }
           property :kind2, decorator: Kind, documentation: { desc: 'Secondary kind.' } do
             property :name, documentation: { type: String, desc: 'Kind name.' }
@@ -121,6 +122,7 @@ describe 'responseInlineModel' do
       'description' => 'This returns something',
       'properties' => {
         'text' => { 'description' => 'Content of something.', 'type' => 'string' },
+        'alias' => { 'description' => 'Aliased.', 'type' => 'string' },
         'kind' => { '$ref' => '#/definitions/Kind', 'description' => 'The kind of this something.' },
         'kind2' => {
           'type' => 'object',
