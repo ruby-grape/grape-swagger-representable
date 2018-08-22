@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'responseInlineModel' do
@@ -27,12 +29,15 @@ describe 'responseInlineModel' do
           include Representable::JSON
 
           property :text, documentation: { type: 'string', desc: 'Content of something.' }
-          property :original, as: :alias, documentation: { type: 'string', desc: 'Aliased.'}
+          property :original, as: :alias, documentation: { type: 'string', desc: 'Aliased.' }
           property :kind, decorator: Kind, documentation: { desc: 'The kind of this something.' }
           property :kind2, decorator: Kind, documentation: { desc: 'Secondary kind.' } do
             property :name, documentation: { type: String, desc: 'Kind name.' }
           end
           property :kind3, decorator: ThisInlineApi::Representers::Kind, documentation: { desc: 'Tertiary kind.' }
+          property :kind4, decorator: ThisInlineApi::Representers::Kind, documentation: { required: true } do
+            property :id, documentation: { required: true }
+          end
           collection :tags, decorator: ThisInlineApi::Representers::Tag, documentation: { desc: 'Tags.' } do
             property :color, documentation: { type: String, desc: 'Tag color.' }
           end
@@ -133,6 +138,19 @@ describe 'responseInlineModel' do
           'description' => 'Secondary kind.'
         },
         'kind3' => { '$ref' => '#/definitions/Kind', 'description' => 'Tertiary kind.' },
+        'kind4' => {
+          'description' => '',
+          'properties' => {
+            'id' => {
+              'description' => '',
+              'example' => 123,
+              'format' => 'int32',
+              'type' => 'string'
+            }
+          },
+          'required' => ['id'],
+          'type' => 'object'
+        },
         'tags' => {
           'type' => 'array',
           'items' => {
@@ -144,7 +162,8 @@ describe 'responseInlineModel' do
           },
           'description' => 'Tags.'
         }
-      }
+      },
+      'required' => ['kind4']
     )
 
     expect(subject['definitions'].keys).to include 'Kind'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GrapeSwagger
   module Representable
     class Parser
@@ -75,33 +77,60 @@ module GrapeSwagger
             }
           end
         else
-          attributes = parse_representer(representer)
-          attributes = attributes.deep_merge!(parse_representer(nested)) if nested
+          attributes, required = combine(representer, nested)
 
           if is_a_collection
             {
               type: :array,
-              items: {
+              items: with_required({
                 type: :object,
                 properties: attributes
-              },
+              }, required),
               description: documentation[:desc] || property[:desc] || ''
             }
           else
-            {
+            with_required({
               type: :object,
               properties: attributes,
               description: documentation[:desc] || property[:desc] || ''
-            }
+            }, required)
           end
         end
       end
 
       def parse_representer(representer)
-        representer.map.each_with_object({}) do |value, property|
+        properties = representer.map.each_with_object({}) do |value, property|
           property_name = value[:as].try(:call) || value.name
           property[property_name] = parse_representer_property(value)
         end
+
+        required = representer.map
+                              .select { |value| value[:documentation] && value[:documentation][:required] }
+                              .map { |value| value[:as] || value.name }
+
+        [properties, required]
+      end
+
+      def combine(representer, nested)
+        attributes, required = parse_representer(representer)
+        return [attributes, required] unless nested
+
+        nested_attributes, nested_required = parse_representer(nested) if nested
+        final_attributes = attributes.deep_merge!(nested_attributes)
+
+        overrided = (attributes.keys & nested_attributes.keys)
+
+        final_required = (required + nested_required)
+                         .uniq
+                         .select { |k| (overrided.include?(k) && nested_required.include?(k)) || !overrided.include?(k) }
+
+        [final_attributes, final_required]
+      end
+
+      def with_required(hash, required)
+        return hash if required.empty?
+        hash[:required] = required
+        hash
       end
     end
   end
