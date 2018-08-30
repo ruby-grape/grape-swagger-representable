@@ -42,7 +42,7 @@ module GrapeSwagger
           end
 
           values = documentation[:values] || property[:values] || nil
-          memo[:enum] = values if values.is_a?(Array)
+          memo[:enum] = values.is_a?(Proc) ? values.call : values if values
 
           example = documentation[:example] || property[:example] || nil
           memo[:example] = example.is_a?(Proc) ? example.call : example if example
