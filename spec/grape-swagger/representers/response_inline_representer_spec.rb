@@ -21,7 +21,7 @@ describe 'responseInlineModel' do
         class Error < Representable::Decorator
           include Representable::JSON
 
-          property :code, documentation: { type: 'string', desc: 'Error code' }
+          property :code, default: 403, documentation: { type: 'string', desc: 'Error code' }
           property :message, documentation: { type: 'string', desc: 'Error message' }
         end
 
@@ -39,7 +39,7 @@ describe 'responseInlineModel' do
             property :id, documentation: { required: true }
           end
           collection :tags, decorator: ThisInlineApi::Representers::Tag, documentation: { desc: 'Tags.' } do
-            property :color, documentation: { type: String, desc: 'Tag color.' }
+            property :color, documentation: { type: String, desc: 'Tag color.', values: -> { %w[red blue green] }, default: 'red' }
           end
         end
       end
@@ -116,7 +116,7 @@ describe 'responseInlineModel' do
       'type' => 'object',
       'description' => 'This returns something',
       'properties' => {
-        'code' => { 'type' => 'string', 'description' => 'Error code' },
+        'code' => { 'type' => 'string', 'description' => 'Error code', 'default' => 403 },
         'message' => { 'type' => 'string', 'description' => 'Error message' }
       }
     )
@@ -157,7 +157,12 @@ describe 'responseInlineModel' do
             'type' => 'object',
             'properties' => {
               'name' => { 'description' => 'Name', 'type' => 'string', 'example' => 'A tag' },
-              'color' => { 'description' => 'Tag color.', 'type' => 'string' }
+              'color' => {
+                'description' => 'Tag color.',
+                'type' => 'string',
+                'enum' => %w[red blue green],
+                'default' => 'red'
+              }
             }
           },
           'description' => 'Tags.'
