@@ -27,8 +27,13 @@ describe 'responseModel' do
         class Error < Representable::Decorator
           include Representable::JSON
 
-          property :code, documentation: { type: 'string', desc: 'Error code' }
+          property :code, documentation: { type: 'string', hidden: -> { false }, desc: 'Error code' }
           property :message, documentation: { type: 'string', desc: 'Error message' }
+          property :developer_message, documentation: { type: 'string', hidden: -> { !developer? }, desc: 'Developer hidden error message' }
+
+          def self.developer?
+            false
+          end
         end
 
         class Something < Representable::Decorator
@@ -97,6 +102,17 @@ describe 'responseModel' do
           'items' => { '$ref' => '#/definitions/Something' }
         }
       }
+    )
+  end
+
+  it 'should document specified models with hidden property' do
+    allow(ThisApi::Representers::Error).to receive(:developer?).and_return(true)
+    expect(subject['definitions']['Error']).to eq(
+      'type' => 'object',
+      'description' => 'This returns something',
+      'properties' => { 'code' =>    { 'description' => 'Error code', 'type' => 'string' },
+                        'message' => { 'description' => 'Error message', 'type' => 'string' },
+                        'developer_message' => { 'description' => 'Developer hidden error message', 'type' => 'string' } }
     )
   end
 
