@@ -104,6 +104,8 @@ module GrapeSwagger
       def parse_representer(representer)
         properties = representer.map.each_with_object({}) do |value, property|
           property_name = value[:as].try(:call) || value.name
+          hidden_property = value[:documentation]&.[](:hidden)
+          next if hidden_property && (hidden_property.is_a?(Proc) ? hidden_property.call : hidden_property)
           property[property_name] = parse_representer_property(value)
         end
 
