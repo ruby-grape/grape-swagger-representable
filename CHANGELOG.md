@@ -1,9 +1,9 @@
-### 0.2.3 (Next)
+### 0.3.0 (2026/10/27)
 
 * [#14](https://github.com/ruby-grape/grape-swagger-representable/pull/14): Modernize dependencies, gem metadata, and specifications - [@AlexWayfer](https://github.com/AlexWayfer).
 * [#14](https://github.com/ruby-grape/grape-swagger-representable/pull/14): Require Ruby 3.1 or newer, support Ruby 4.0, and replace Travis with GitHub Actions testing Grape 2/3/4 and Representable 3.2/latest 3.x with Coveralls coverage - [@dblock](https://github.com/dblock).
 * [#15](https://github.com/ruby-grape/grape-swagger-representable/pull/15): Add a changelog and tokenless Danger checks for pull request changelog entries - [@dblock](https://github.com/dblock).
-* Your contribution here.
+* Add release preparation and publication instructions in `RELEASING.md` - [@dblock](https://github.com/dblock).
 
 ### 0.2.2 (2018/09/22)
 
