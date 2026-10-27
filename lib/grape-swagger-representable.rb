@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-require 'grape-swagger/representable'
+require_relative 'grape-swagger/representable'
