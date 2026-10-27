@@ -3,12 +3,12 @@
 require 'grape-swagger'
 require 'representable'
 
-require 'grape-swagger/representable/version'
-require 'grape-swagger/representable/parser'
+require_relative 'representable/version'
+require_relative 'representable/parser'
 
 module GrapeSwagger
   module Representable
   end
 end
 
-GrapeSwagger.model_parsers.register(::GrapeSwagger::Representable::Parser, ::Representable::Decorator)
+GrapeSwagger.model_parsers.register(GrapeSwagger::Representable::Parser, Representable::Decorator)

@@ -1,15 +1,19 @@
 AllCops:
+  NewCops: enable
   Exclude:
     - vendor/**/*
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 3.1
 
 inherit_from: .rubocop_todo.yml
 
 Layout/EmptyLinesAroundArguments:
   Enabled: false
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
 
 Metrics/BlockLength:
   Exclude:
@@ -18,7 +22,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 300
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - spec/**/*
