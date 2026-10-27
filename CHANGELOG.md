@@ -1,3 +1,7 @@
+### 0.3.1 (Next)
+
+* Your contribution here.
+
 ### 0.3.0 (2026/10/27)
 
 * [#14](https://github.com/ruby-grape/grape-swagger-representable/pull/14): Modernize dependencies, gem metadata, and specifications - [@AlexWayfer](https://github.com/AlexWayfer).
