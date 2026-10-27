@@ -37,6 +37,10 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/ruby-grape/grape-swagger-representable.
 
+Add a pull request entry to the next release section of [CHANGELOG.md](CHANGELOG.md), including the PR link, a short description, and author attribution. Leave the `Your contribution here.` placeholder for the next contributor.
+
+Danger checks changelog updates on pull requests. Its read-only workflow generates a report, and a separate workflow posts the report as a PR comment using GitHub's built-in token; no personal access token or repository secret is required.
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

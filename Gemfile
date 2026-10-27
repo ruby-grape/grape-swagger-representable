@@ -17,3 +17,9 @@ gem 'rspec', '~> 3.0'
 gem 'rubocop'
 gem 'simplecov', require: false
 gem 'simplecov-lcov', require: false
+
+group :danger do
+  gem 'danger', require: false
+  gem 'danger-changelog', require: false
+  gem 'danger-pr-comment', '~> 0.1.0', require: false
+end
